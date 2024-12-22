@@ -1,0 +1,58 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+
+/* HTML: <div class="loader"></div> *//* HTML: <div class="loader"></div> */
+/* HTML: <div class="loader"></div> */
+.loader {
+    border: 16px solid #f3f3f3 !important; /* Light grey */
+    border-top: 16px solid #3498db !important; /* Blue */
+    border-radius: 50% !important;
+    width: 70px !important;
+    display: block;
+    height: 70px !important;
+    animation: spin 2s linear infinite !important;
+  }
+  
+  @keyframes spin {
+    0% { transform: rotate(0deg); }
+    100% { transform: rotate(360deg); }
+  }
+.loading-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000; /* Asegúrate de que sea mayor que el resto de los elementos */
+    }
+    
+    .loading-spinner {
+    /* Estilos para tu spinner o animación de carga */
+    }
+
+#default-modal{
+    background: #00000099;
+}
+#default-modal .relative{
+    transform: translateX(-100%);
+    transition: transform 0.5s ease-in-out;
+}
+
+#default-modal.visible .relative{
+    transform: translateX(0%);
+  
+}
+
+.time-input{
+    width: 48% !important;
+}
+
+.time-separator{
+    width: 4% !important;
+}
