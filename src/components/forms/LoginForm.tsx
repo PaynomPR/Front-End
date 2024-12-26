@@ -8,8 +8,8 @@ import { showError, showSuccess } from "../../utils/functions";
 const LoginForm = () => {
   const navigate = useNavigate();
   const [formData, setFormData] = useState({
-    username: "admin@admin.com",
-    password: "123456",
+    username: "",
+    password: "",
   });
 
   const handleInputChange = (e: React.FormEvent<HTMLInputElement>) => {

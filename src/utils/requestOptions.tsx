@@ -246,6 +246,9 @@ export function editCompanies(data: object, id: number) {
 export function setAccountants(data: object) {
   return Axios.request(setOptions("accountant/", "POST", data)); // Using a post request, specifying the user
 }
+export function changePassword(data: object) {
+  return Axios.request(setOptions("auth/change-password/", "POST", data)); // Using a post request, specifying the user
+}
 
 export function editAccountants(data: object, id: number) {
   return Axios.request(setOptions("accountant/" + id, "PUT", data)); // Using a post request, specifying the user
@@ -410,7 +413,7 @@ export function getW2PFoil(
     if (employer != null)
       link.setAttribute(
         "download",
-        "Empleado-" + employer.first_name + "-" + employer.last_name + ".pdf"
+        "W2PR-Empleado-" + employer.first_name + "-" + employer.last_name + ".pdf"
       );
     else link.setAttribute("download", "W2-PR-ALL.pdf");
     document.body.appendChild(link);
@@ -449,7 +452,7 @@ export function get940Foil(company_id: number, company: any, year: string) {
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "Company-" + company.name + ".pdf");
+    link.setAttribute("download", "940-Company-" + company.name + ".pdf");
     document.body.appendChild(link);
     link.click();
   });
@@ -474,7 +477,7 @@ export function get943Foil(
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "Company-" + company.name + ".pdf");
+    link.setAttribute("download", "943-Company-" + company.name + ".pdf");
     document.body.appendChild(link);
     link.click();
   });
@@ -499,7 +502,7 @@ export function get941Foil(
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "Company-" + company.name + ".pdf");
+    link.setAttribute("download", "941-Company-" + company.name + ".pdf");
     document.body.appendChild(link);
     link.click();
   });
@@ -549,7 +552,7 @@ export function getHaciendaFoil(
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "Company-" + company.name + ".pdf");
+    link.setAttribute("download", "Hacienda-Company-" + company.name + ".pdf");
     document.body.appendChild(link);
     link.click();
   });
@@ -630,7 +633,7 @@ export function getCFSEFoil(
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "Company-" + company.name + ".pdf");
+    link.setAttribute("download", "CFSE-Company-" + company.name + ".pdf");
     document.body.appendChild(link);
     link.click();
   });
@@ -656,7 +659,7 @@ export function getUnemploymentFoil(
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "Company-" + company.name + ".pdf");
+    link.setAttribute("download", "UNEMPLOYED-Company-" + company.name + ".pdf");
     document.body.appendChild(link);
     link.click();
   });
@@ -682,7 +685,7 @@ export function getChoferilFoil(
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute("download", "Company-" + company.name + ".pdf");
+    link.setAttribute("download", "CHOFERIL-Company-" + company.name + ".pdf");
     document.body.appendChild(link);
     link.click();
   });

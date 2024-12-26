@@ -8,6 +8,8 @@ import {
   faBarcode,
   faMoneyBill,
   faDiagramProject,
+  faUser
+  
 } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -182,7 +184,28 @@ const Sidebar = ({
                 </NavLink>
               </li>
             )}
-
+<li>
+              <NavLink
+                onClick={toggleSidebar}
+                to="/escritorio/profile"
+                className={({ isActive }) =>
+                  [
+                    "flex items-center py-4 justify-items-center  text-gray-900 rounded-lg text-white ",
+                    isActive ? " active group" : "",
+                  ].join("")
+                }
+              >
+                <div className="p-3 rounded-lg border-white border group-[.active]:bg-[#a29dc5ad]">
+                  <FontAwesomeIcon
+                    className="text-2xl fa-fw text-white"
+                    icon={faUser}
+                  />
+                </div>
+                {sidebarOpen === "true" && (
+                  <span className="ms-3 text-white">Profile</span>
+                )}
+              </NavLink>
+            </li>
             <li className=" block xl:hidden">
               <NavLink
                 to="../"

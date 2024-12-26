@@ -35,6 +35,7 @@ import EditAccountants from "./pages/accountants/EditAccountants";
 import Codes from "./pages/code/Codes";
 import AddCode from "./pages/code/AddCodes";
 import EditCodes from "./pages/code/EditCodes";
+import Profile from "./pages/profile/profile";
 
 const App = () => {
   return (
@@ -100,6 +101,10 @@ const App = () => {
             <Route
               path="empresas/:id/terceros/:id_employer/editar"
               element={<EditOutEmployee />}
+            />
+             <Route
+              path="profile"
+              element={<Profile />}
             />
             <Route path="codigos" element={<Codes />} />
             <Route path="codigos/agregar" element={<AddCode />} />

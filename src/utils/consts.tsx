@@ -29,17 +29,17 @@ export const FILES = [
   },
   {
     id: 4,
-    name: "Hacienda",
+    name: "HACIENDA",
   },
   ,
   {
     id: 5,
-    name: "Desempleo",
+    name: "DESEMPLEO E INCAPACIDAD",
   },
   ,
   {
     id: 6,
-    name: "Choferil",
+    name: "CHOFERIL",
   },
   {
     id: 7,
@@ -47,25 +47,25 @@ export const FILES = [
   },
   {
     id: 12,
-    name: "Bonus",
+    name: "BONUS",
   },
   {
     id: 8,
-    name: "Reporte de Salarios",
+    name: "REPORTE DE TALONARIOS",
   },
   ,
   {
     id: 9,
-    name: "Wages - TXT",
+    name: "WAGES TXT DEPTO DEL TRABAJO",
   },
   {
     id: 10,
-    name: "W2-PR - TXT",
+    name: "W2PR REPORT SURI TXT",
   },
 
   {
     id: 11,
-    name: "W2SSE-PR - TXT",
+    name: "W2PR REPORT SSA TXT",
   },
 ];
 export const YEARS = [
