@@ -4,8 +4,9 @@ import CustomInputs from "../../components/forms/CustomInputs";
 import { makeid, showSuccess } from "../../utils/functions";
 
 import { useNavigate } from "react-router-dom";
-import { setCode } from "../../services/code.services";
+
 import { CODE } from "../../models/code";
+import { setCode } from "../../utils/requestOptions";
 
 const AddCode = () => {
   const navigate = useNavigate();
@@ -16,7 +17,7 @@ const AddCode = () => {
     setCode(formData)
       .then(() => {
         // Data retrieval and processing
-        showSuccess("Editado exitosamente.");
+        showSuccess("Creado exitosamente.");
         navigate("../codigos");
       })
       .catch(() => {

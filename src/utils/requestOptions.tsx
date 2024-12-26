@@ -140,6 +140,11 @@ export function getTalonario(
   ); // Using a post request, specifying the user
 }
 
+export function setCode(data: object) {
+  return Axios.request(setOptions("codes", "POST", data)); // Using a post request, specifying the user
+}
+
+
 export function getAllEmployers() {
   return Axios.request(setOptions("employers/", "GET")); // Using a post request, specifying the user
 }
