@@ -250,6 +250,14 @@ export function changePassword(data: object) {
   return Axios.request(setOptions("auth/change-password/", "POST", data)); // Using a post request, specifying the user
 }
 
+export function setActive2FA() {
+  return Axios.request(setOptions("auth/2fa/active", "POST")); // Using a post request, specifying the user
+}
+
+export function setVerify2FA(code : any) {
+  return Axios.request(setOptions("auth/2fa/verify", "POST",code)); // Using a post request, specifying the user
+}
+
 export function editAccountants(data: object, id: number) {
   return Axios.request(setOptions("accountant/" + id, "PUT", data)); // Using a post request, specifying the user
 }

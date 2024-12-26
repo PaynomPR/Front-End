@@ -502,7 +502,7 @@ const Cargar = () => {
 
     getCounterFoil(
       Number(params.id_company),
-      Number(params.id_employer),
+      idEmployer,
       formData.id,
       filterById(timesData, period),
       employerData

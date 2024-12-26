@@ -1,4 +1,4 @@
-import { Routes, Route, BrowserRouter } from "react-router-dom";
+import { Routes, Route, BrowserRouter, Navigate } from "react-router-dom";
 
 import OutLayout from "./layouts/OutLayout";
 import InLayout from "./layouts/InLayout";
@@ -42,17 +42,22 @@ const App = () => {
   return (
     <BrowserRouter>
       <Routes>
+      
         <Route element={<PublicRoutes />}>
           <Route path="/" element={<OutLayout />}>
             <Route index element={<Login />} />
+            <Route path="*" element={<Navigate to="/" replace />} />
+
              <Route path="registro" element={<Register />} />
             <Route path="recuperar" element={<ForgotPassword />} />
           </Route>
         </Route>
         <Route element={<PrivateRoutes />}>
+        
           <Route path="/escritorio" element={<InLayout />}>
             <Route index path="dash" element={<Dashboard />} />
-
+            <Route path="*" element={<Navigate to="dash" replace />} />
+           
             <Route path="empresas" element={<Empresas />} />
             <Route path="empresas/agregar" element={<AddCompany />} />
             <Route path="empresas/editar/:id" element={<EditCompany />} />
