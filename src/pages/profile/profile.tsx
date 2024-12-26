@@ -1,15 +1,13 @@
 import { useState } from "react";
 import CustomInputs from "../../components/forms/CustomInputs";
-import { changePassword, setAccountants } from "../../utils/requestOptions";
+import { changePassword } from "../../utils/requestOptions";
 
 import { showError, showSuccess } from "../../utils/functions";
-import { useNavigate } from "react-router-dom";
 
 import { CHANGEPASSWORD } from "../../models/changePassword";
 
 const Profile = () => {
   const [formData, setFormData] = useState(CHANGEPASSWORD);
-  const navigate = useNavigate();
 
   const handleInputChange = (e: React.FormEvent<any>) => {
     setFormData({
