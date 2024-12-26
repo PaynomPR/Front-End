@@ -44,7 +44,7 @@ const App = () => {
         <Route element={<PublicRoutes />}>
           <Route path="/" element={<OutLayout />}>
             <Route index element={<Login />} />
-            {/*  <Route path="registro" element={<Register />} /> */}
+             <Route path="registro" element={<Register />} />
             <Route path="recuperar" element={<ForgotPassword />} />
           </Route>
         </Route>
