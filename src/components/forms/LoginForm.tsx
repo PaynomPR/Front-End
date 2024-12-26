@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import CustomInputs from "./CustomInputs";
 
 import { setLogin, setToken } from "../../services/auth.services";
@@ -80,13 +80,8 @@ const LoginForm = () => {
         Entrar
       </button>
 
-      {/*  <div className="flex items-center justify-between">
-        <Link
-          to="/recuperar"
-          className="text-sm font-medium text-primary-600 hover:underline "
-        >
-          ¿Olvidaste tu contraseña?
-        </Link>
+       <div className="flex items-center justify-between">
+       
         <p className="text-sm text-end font-light text-gray-500 ">
           ¿No eres miembro todavía{" "}
           <Link
@@ -96,7 +91,7 @@ const LoginForm = () => {
             Regístrate
           </Link>
         </p>
-      </div> */}
+      </div>
     </form>
   );
 };
