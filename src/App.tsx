@@ -36,6 +36,7 @@ import Codes from "./pages/code/Codes";
 import AddCode from "./pages/code/AddCodes";
 import EditCodes from "./pages/code/EditCodes";
 import Profile from "./pages/profile/profile";
+import Register from "./pages/out/Register";
 
 const App = () => {
   return (
