@@ -141,8 +141,9 @@ export function getTalonario(
 }
 
 export function setCode(data: object) {
-  return Axios.request(setOptions("codes", "POST", data)); // Using a post request, specifying the user
+  return Axios.request(setOptions("codes/", "POST", data)); // Using a post request, specifying the user
 }
+
 
 
 export function getAllEmployers() {
