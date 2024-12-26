@@ -1,7 +1,7 @@
 import { useState } from "react";
 import CustomInputs from "../../components/forms/CustomInputs";
-import { changePassword, setActive2FA, setVerify2FA } from "../../utils/requestOptions";
-import QRCode from 'react-qr-code'; // Make sure you have this installed
+import { changePassword, /* setActive2FA ,*/ /* setVerify2FA */ } from "../../utils/requestOptions";
+/* import QRCode from 'react-qr-code'; */
 
 import { showError, showSuccess } from "../../utils/functions";
 
@@ -9,9 +9,9 @@ import { CHANGEPASSWORD } from "../../models/changePassword";
 
 const Profile = () => {
   const [formData, setFormData] = useState(CHANGEPASSWORD);
-  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false); // Track 2FA status
+ /*  const [twoFactorEnabled, setTwoFactorEnabled] = useState(false); // Track 2FA status
   const [qrCode, setQrCode] = useState('');
-  const [totpCode, setTotpCode] = useState('');
+  const [totpCode, setTotpCode] = useState(''); */
 
 
   const handleInputChange = (e: React.FormEvent<any>) => {
@@ -37,7 +37,7 @@ const Profile = () => {
         showError(error.response.data.detail);
       });
   };
-  const handleRegenerate2FA = () => {
+ /*  const handleRegenerate2FA = () => {
     setActive2FA()
       .then((data : any) => {
         console.log(data.data.result);
@@ -60,7 +60,7 @@ const Profile = () => {
       .catch((error) => {
         showError("Codigo de validacion caduco.");
       });
-  };
+  }; */
 
   return (
     <>
