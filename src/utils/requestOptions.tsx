@@ -247,7 +247,7 @@ export function setAccountants(data: object) {
   return Axios.request(setOptions("accountant/", "POST", data)); // Using a post request, specifying the user
 }
 export function changePassword(data: object) {
-  return Axios.request(setOptions("auth/change-password/", "POST", data)); // Using a post request, specifying the user
+  return Axios.request(setOptions("auth/change-password", "POST", data)); // Using a post request, specifying the user
 }
 
 export function setActive2FA() {
