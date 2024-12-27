@@ -7,7 +7,7 @@ export function editCode(data: object, id: number) {
 }
 
 export function getCodes() {
-  return Axios.request(setOptions("codes", "GET")); // Using a post request, specifying the user
+  return Axios.request(setOptions("codes/", "GET")); // Using a post request, specifying the user
 }
 
 export function getCode(id: number) {
