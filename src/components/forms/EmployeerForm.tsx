@@ -41,7 +41,7 @@ const EmployeerForm = (props: Props) => {
         <div className="xl:w-1/2 w-full ">
           <CustomInputs
             class="w-1/2 mx-auto pe-1  inline-block "
-            label="Apellido paterno *"
+            label="Apellido paterno"
             name="last_name"
             error={props.errors.last_name}  // Pass the error for this field
 
@@ -52,7 +52,7 @@ const EmployeerForm = (props: Props) => {
           />
           <CustomInputs
             class="w-1/2 mx-auto ps-1  inline-block "
-            label="Apellido materno *"
+            label="Apellido materno"
             name="mother_last_name"
             error={props.errors.mother_last_name}  // Pass the error for this field
             onChange={props.onChange}
@@ -62,7 +62,7 @@ const EmployeerForm = (props: Props) => {
           />
           <CustomInputs
             class="w-1/2 mx-auto pe-1  inline-block "
-            label="Nombre *"
+            label="Nombre"
             name="first_name"
             error={props.errors.first_name}  // Pass the error for this field
 

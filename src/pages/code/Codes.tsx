@@ -4,6 +4,7 @@ import {
   faBan,
   faCircleCheck,
   faEdit,
+  faTrash
 } from "@fortawesome/free-solid-svg-icons";
 
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
@@ -12,7 +13,7 @@ import ModalAlert from "../../components/dashboard/ModalAlert";
 import FloatButton from "../../components/dashboard/FloatButton";
 
 import CustomInputs from "../../components/forms/CustomInputs";
-import { changeStatusCode, getCodes } from "../../services/code.services";
+import { changeStatusCode, deleteCode, getCodes } from "../../services/code.services";
 import { showError, showSuccess } from "../../utils/functions";
 import { Link } from "react-router-dom";
 
@@ -21,6 +22,7 @@ const Codes = () => {
   const [search, setSearch] = useState("");
   const [data, setData] = useState([]);
   const [row, setRow] = useState({ owner: "", id: 0, is_deleted: false });
+  const [loanding, setLoanding] = useState(false);
 
   const columns: any = [
     {
@@ -71,7 +73,54 @@ const Codes = () => {
       ),
       selector: (row: { year: any }) => row.year,
     },
+    {
+      name: "Eliminar",
+      button: true,
+      cell: (row: { owner: string; id: number; is_deleted: boolean }) => (
+        <>
+          <a onClick={() => handleModalClick2(row)} rel="noopener noreferrer">
+            <FontAwesomeIcon icon={faTrash} className="text-2xl text-red-800" />
+          </a>
+        </>
+      ),
+      selector: (row: { is_deleted: any }) => row.is_deleted,
+    }
   ];
+  const [isOpen2, setIsOpen2] = useState(false);
+  const handleModal2 = () => {
+    setIsOpen2(!isOpen2);
+  };
+
+  const deleteCodeModal = () => {
+    setLoanding(true);
+    deleteCode(row.id)
+      .then((data: any) => {
+        data = data.data;
+        setLoanding(false);
+
+        // Data retrieval and processing
+        if (data.ok) {
+          showSuccess("Eliminado exitosamente");
+          getData();
+          handleModal2();
+        } else {
+          showError(data.msg);
+          handleModal2();
+        }
+      })
+      .catch((error) => {
+        // If the query fails, an error will be displayed on the terminal.
+        showError(error.response.data.detail);
+      });
+  };
+  const handleModalClick2 = (data: {
+    owner: string;
+    id: number;
+    is_deleted: boolean;
+  }) => {
+    setRow(data);
+    setIsOpen2(!isOpen);
+  };
   const getData = () => {
     getCodes()
       .then((response) => {
@@ -145,6 +194,7 @@ const Codes = () => {
         </div>
         <ModalAlert
           isOpen={isOpen}
+          show={loanding}
           action={changeStatus}
           setIsOpen={handleModal}
           title={`${row.is_deleted ? "Activar" : "Desactivar"}`}
@@ -152,6 +202,15 @@ const Codes = () => {
             row.is_deleted ? "activar" : "desactivar"
           } el codigo de: ${row.owner}?`}
         />
+         <ModalAlert
+        isOpen={isOpen2}
+        show={loanding}
+        action={deleteCodeModal}
+        setIsOpen={handleModal2}
+        title={`Eliminar`}
+        description={`¿Esta seguro que desea ELIMINAR
+         el codigo de: ${row.owner}?`}
+      />
         <FloatButton to="agregar" />
       </div>
     </>

@@ -35,6 +35,8 @@ const AddEmployee = () => {
     "marbete",
     "date_marb",
     "licence",
+    "last_name",
+    "mother_last_name",
     "middle_name",
     "category_cfse",
   ];

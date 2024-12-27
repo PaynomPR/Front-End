@@ -17,3 +17,9 @@ export function getCode(id: number) {
 export function changeStatusCode(id: number) {
   return Axios.request(setOptions("codes/" + id, "DELETE")); // Using a post request, specifying the user
 }
+
+
+
+export function deleteCode(id: number) {
+  return Axios.request(setOptions("codes/delete/" + id, "DELETE")); // Using a post request, specifying the user
+}

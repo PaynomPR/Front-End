@@ -40,6 +40,7 @@ import "react-date-range/dist/styles.css"; // main style file
 import "react-date-range/dist/theme/default.css"; // theme css file
 import CustomInputs from "../components/forms/CustomInputs";
 import { BONUS } from "../models/bonus";
+import { DateRangePicker } from "react-date-range";
 
 const Process = () => {
   const navigate = useNavigate();
@@ -53,6 +54,12 @@ const Process = () => {
     const currentYear = new Date().getFullYear().toString(); // Convertimos el año a string
     return currentYear;
   });
+  const [selectionRange, setSelectionRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: "selection",
+  });
+
   const [data, setData] = useState([]);
   const [periods, setPeriods] = useState([]);
   const [periodNorma, setPeriodNorma] = useState(0);
@@ -187,6 +194,10 @@ const Process = () => {
     navigate(companyId + "/" + employerId + "/cargar");
   };
 
+  const handleSelect = (ranges: any) => {
+    setSelectionRange(ranges.selection);
+  };
+
   const downloadFile = () => {
     if (year == "0")
       showError("Debe seleccionar un año para generar el documento");
@@ -230,7 +241,7 @@ const Process = () => {
     if (selectedFile == 9) {
       var companies = filterById(data, companyId);
       setLoanding(false);
-      getWagesTxt(companyId,  year, selectedTrimestre)
+      getWagesTxt(companyId, year, selectedTrimestre)
         .then(() => {
           // Data retrieval and processing
           setLoanding(false);
@@ -467,7 +478,7 @@ const Process = () => {
         <div className="md:w-full mt-4 w-full flex flex-col   gap-2  ">
           <div className="w-full bg-white rounded-lg  p-4	shadow-xl 	  ">
             <CustomSelect
-              class="w-full mx-auto  inline-block "
+              class="w-full mx-auto  inline-block mt-2 "
               label="Seleccione una compañía"
               options={data}
               onChange={handleCompanyChange}
@@ -476,7 +487,7 @@ const Process = () => {
               type="text"
             />
             <CustomSelect
-              class="w-full mx-auto  inline-block "
+              class="w-full mx-auto  inline-block mt-2 "
               label="Seleccione un empleado"
               disabled={false}
               onChange={handleEmployerChange}
@@ -486,7 +497,7 @@ const Process = () => {
               type="text"
             />
             <CustomSelect
-              class="w-full mx-auto  inline-block  "
+              class="w-full mx-auto  inline-block mt-2  "
               label="Seleccione tipo de archivo"
               disabled={false}
               inputCss="uppercase"
@@ -495,9 +506,9 @@ const Process = () => {
               placeholder="Seleccione un archivo"
               type="text"
             />
-            {selectedFile != 0 && selectedFile != 7 && (
+            {selectedFile != 0 && selectedFile != 7 && selectedFile != 14 && (
               <CustomSelect
-                class="w-full mx-auto  inline-block "
+                class="w-full mx-auto  inline-block mt-2 "
                 label="Seleccione el año"
                 disabled={false}
                 onChange={handleYearChange}
@@ -509,7 +520,7 @@ const Process = () => {
 
             {selectedFile == 7 && (
               <CustomSelect
-                class="w-full mx-auto  inline-block "
+                class="w-full mx-auto  inline-block mt-2 "
                 label="Seleccione el año"
                 disabled={false}
                 onChange={handleYearChange}
@@ -521,7 +532,7 @@ const Process = () => {
             {selectedFile == 8 && employerId == 0 && (
               <CustomSelect
                 options={PERIOD_PAYROLL}
-                class="w-full mx-auto inline-block"
+                class="w-full mx-auto inline-block mt-2"
                 label="Período de norma"
                 onChange={handlePeriodNormaChange}
                 name="period_norma"
@@ -678,7 +689,14 @@ const Process = () => {
                 </div>
               </>
             )}
-
+            {selectedFile == 14 && (
+              <div className="mt-4 text-center">
+                <DateRangePicker
+                  ranges={[selectionRange]}
+                  onChange={handleSelect}
+                />
+              </div>
+            )}
             {selectedFile == 3 ||
             selectedFile == 4 ||
             selectedFile == 5 ||
