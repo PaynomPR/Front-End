@@ -30,9 +30,10 @@ const EditEmployee = () => {
     "type",
     "marbete",
     "date_marb",
-    "middle_name",
-
     "licence",
+    "last_name",
+    "mother_last_name",
+    "middle_name",
     "category_cfse",
   ];
 
