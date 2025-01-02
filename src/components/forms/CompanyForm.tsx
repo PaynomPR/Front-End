@@ -227,6 +227,63 @@ const CompanyForm = (props: Props) => {
                {props.errors.commercial_register && <span className="text-red-500 text-xs mt-1">{props.errors.commercial_register}</span>} {/* Display error */}
 
             </label>
+            <CustomInputs
+              class="w-1/3 mx-auto  pe-1  inline-block "
+              name="driver_code"
+              onChange={props.onChange}
+              value={props.formData.driver_code}
+              label="Aportación Patronal *"
+              error={props.errors.driver_code}  // Pass the error for this field
+
+              placeholder=""
+              type="text"
+            />
+
+            <CustomInputs
+              name="driver_rate"
+              onChange={props.onChange}
+              value={props.formData.driver_rate}
+              class="w-1/3 mx-auto ps-1  inline-block "
+              label="Rate Choferil *"
+              error={props.errors.driver_rate}  // Pass the error for this field
+
+              placeholder="00820"
+              type="text"
+            />
+
+            <CustomInputs
+              class="w-1/3 mx-auto ps-1  inline-block "
+              name="employed_contribution"
+              onChange={props.onChange}
+              value={props.formData.employed_contribution}
+              label="Aportación Empleado *"
+              error={props.errors.employed_contribution}  // Pass the error for this field
+
+              placeholder=""
+              type="text"
+            />
+            <CustomInputs
+              class="w-1/3 mx-auto ps-1  inline-block "
+              name="special_contribution"
+              onChange={props.onChange}
+              value={props.formData.special_contribution}
+              error={props.errors.special_contribution}  // Pass the error for this field
+
+              label="Contribución Especial *"
+              placeholder=""
+              type="text"
+            />
+            <CustomInputs
+              name="choferil_number"
+              onChange={props.onChange}
+              value={props.formData.choferil_number}
+              error={props.errors.choferil_number}  // Pass the error for this field
+
+              class="w-1/3 mx-auto pe-1  inline-block "
+              label="# Choferil *"
+              placeholder=""
+              type="text"
+            />
           </div>
           <div className="xl:w-1/2  w-full">
             <CustomInputs
@@ -303,63 +360,7 @@ const CompanyForm = (props: Props) => {
               placeholder=""
               type="text"
             />
-            <CustomInputs
-              class="w-1/4 mx-auto  pe-1  inline-block "
-              name="driver_code"
-              onChange={props.onChange}
-              value={props.formData.driver_code}
-              label="Aportación Patronal *"
-              error={props.errors.driver_code}  // Pass the error for this field
-
-              placeholder=""
-              type="text"
-            />
-
-            <CustomInputs
-              name="driver_rate"
-              onChange={props.onChange}
-              value={props.formData.driver_rate}
-              class="w-1/4 mx-auto ps-1  inline-block "
-              label="Rate Choferil *"
-              error={props.errors.driver_rate}  // Pass the error for this field
-
-              placeholder="00820"
-              type="text"
-            />
-
-            <CustomInputs
-              class="w-1/4 mx-auto ps-1  inline-block "
-              name="employed_contribution"
-              onChange={props.onChange}
-              value={props.formData.employed_contribution}
-              label="Aportación Empleado *"
-              error={props.errors.employed_contribution}  // Pass the error for this field
-
-              placeholder=""
-              type="text"
-            />
-            <CustomInputs
-              class="w-1/4 mx-auto ps-1  inline-block "
-              name="special_contribution"
-              onChange={props.onChange}
-              value={props.formData.special_contribution}
-              error={props.errors.special_contribution}  // Pass the error for this field
-
-              label="Contribución Especial *"
-              placeholder=""
-              type="text"
-            />
-            <CustomInputs
-              name="choferil_number"
-              onChange={props.onChange}
-              value={props.formData.choferil_number}
-              error={props.errors.choferil_number}  // Pass the error for this field
-
-              class="w-1/2 mx-auto pe-1  inline-block "
-              label="# Choferil *"
-              placeholder=""
-              type="text"
-            />
+            
             <CustomSelect
               name="payer"
               options={PAYER}

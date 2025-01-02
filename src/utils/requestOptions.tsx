@@ -380,7 +380,7 @@ export function getCounterFoilbyDateRange(
   employer: any
 ) {
   return Axios({
-    url: BASE_URL + `/reports/counterfoil/range`,
+    url: BASE_URL + `/reports/wages/range`,
     method: "POST",
     data: {
       employer_id: employer_id,
@@ -394,10 +394,12 @@ export function getCounterFoilbyDateRange(
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
-    link.setAttribute(
-      "download",
-      "Empleado-" + employer.first_name + "-" + employer.last_name + ".pdf"
-    );
+    if (employer != null)
+      link.setAttribute(
+        "download",
+        "W2PR-Empleado-" + employer.first_name + "-" + employer.last_name + ".pdf"
+      );
+    else link.setAttribute("download", "WAGES-ALL.pdf");
     document.body.appendChild(link);
     link.click();
   });

@@ -8,6 +8,7 @@ import {
   getChoferilFoil,
   getCompanies,
   getCounterFoilAll,
+  getCounterFoilbyDateRange,
   getCounterFoilPeriod,
   getHaciendaFoil,
   getPeriodByType,
@@ -330,6 +331,27 @@ const Process = () => {
           showError(error.response.data.detail);
         });
     }
+   
+    if (selectedFile == 14) {
+      var employer = null;
+      const { startDate, endDate } = selectionRange;
+
+        if (employerId != 0) employer = filterById(employers, employerId);
+      getCounterFoilbyDateRange(companyId,employerId,startDate, endDate, employer)
+        .then(() => {
+          // Data retrieval and processing
+          setLoanding(false);
+
+          showSuccess("Creado exitosamente.");
+        })
+        .catch((error) => {
+          setLoanding(false);
+
+          // If the query fails, an error will be displayed on the terminal.
+          showError(error.response.data.detail);
+        });
+    }
+    
     if (selectedFile == 5) {
       var companies = filterById(data, companyId);
       getUnemploymentFoil(companyId, companies, selectedTrimestre, year)

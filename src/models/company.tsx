@@ -16,7 +16,7 @@ export const COMPANY_DATA = {
   sp_last_control: "",
   date_close: null,
   coml: null,
-  special_contribution: "1",
+  special_contribution: "1.00%",
   country_postal_address: "",
   state_postal_addess: "",
   physical_address: "",
@@ -30,15 +30,15 @@ export const COMPANY_DATA = {
   desem: "",
   disabled_percent: "0",
   vacation_hours: 0,
-  choferil_number: "",
+  choferil_number: "000000000000",
   vacation_date: 0,
   sicks_hours: 0,
   sicks_date: 0,
   unemployment_percentage: "",
-  employed_contribution: "0",
+  employed_contribution: "0.50",
   polize_number: "",
-  driver_code: "",
-  driver_rate: "",
+  driver_code: "0.30",
+  driver_rate: ".80",
 };
 
 export interface COMPANY {
