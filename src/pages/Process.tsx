@@ -533,6 +533,8 @@ const Process = () => {
                 class="w-full mx-auto  inline-block mt-2 "
                 label="Seleccione el año"
                 disabled={false}
+                value={year}
+
                 onChange={handleYearChange}
                 options={YEARS}
                 placeholder="Seleccione un año"
@@ -545,6 +547,7 @@ const Process = () => {
                 class="w-full mx-auto  inline-block mt-2 "
                 label="Seleccione el año"
                 disabled={false}
+               
                 onChange={handleYearChange}
                 options={YEARS_CFSE}
                 placeholder="Seleccione un año"

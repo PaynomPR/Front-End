@@ -191,11 +191,11 @@ const Cargar = () => {
         exed_amount = amount - 41500;
       }
      
-      if (amount > 66000) {
+      if (amount > 61500) {
         withholdingValue = "33";
         exed_sum = 8430;
         
-        exed_amount = amount - 66000;
+        exed_amount = amount - 61500;
       }
     }
     let tax_pr = 0;
@@ -787,7 +787,7 @@ const Cargar = () => {
       .then((response) => {
         // Data retrieval and processing
         setLoanding(false);
-
+        setEmployerData(response.data.result.employer);
         setTimesData([]);
 
         setTimesData([...response.data.result.periods]);
