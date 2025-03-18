@@ -10,6 +10,7 @@ export const TIME_DATA = {
   memo: "",
   tips: 0,
   salary: 0,
+  medical_insurance : 0,
   others: 0,
   bonus: 0,
   accountant_id: 0,
@@ -22,6 +23,7 @@ export const TIME_DATA = {
 
   regular_pay: 0,
   created_at: new Date(),
+  pay_date: new Date(),
   payment: [PAYMENT_DATA],
   vacation_time: "00:00",
   period_id: 1,
@@ -39,7 +41,7 @@ export const TIME_DATA = {
   commissions: 0,
   concessions: 0,
   sick_time: "00:00",
-
+  tax_pr_percent : 0,
   holyday_pay: 0,
   vacation_pay: 0,
   sick_pay: 0,
@@ -55,6 +57,7 @@ export interface TIME {
   period_id: number;
   inability: number;
   choferil: number;
+  medical_insurance : number;
   salary: number;
   others: number;
   bonus: number;
@@ -78,6 +81,8 @@ export interface TIME {
   concessions: number;
   sick_pay: number;
   created_at: Date;
+  pay_date: Date;
+  tax_pr_percent: number;
   payment: [PAYMENT];
   regular_time: string;
   memo: string;

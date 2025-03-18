@@ -75,17 +75,20 @@ const Cargar = () => {
     let over_amount = 0;
     let salary = 0;
     let accountant_id = 0;
-
+    let tax_pr_percent = 0;
     let meal_amount = 0;
     if (formData.id == 0) {
       salary = employerData.salary;
       accountant_id = companyData.accountant_id;
+      tax_pr_percent = Number(employerData.payment_percentage.replace("%", ""));
 
       regular_amount = employerData.regular_time;
       over_amount = employerData.overtime;
       meal_amount = employerData.mealtime;
     } else {
       salary = formData.salary;
+      tax_pr_percent = formData.tax_pr_percent;
+
       accountant_id = formData.accountant_id;
       regular_amount = formData.regular_amount;
       over_amount = formData.over_amount;
@@ -166,8 +169,15 @@ const Cargar = () => {
       count = 12;
     }
     var exed_sum= 0;
-    if (employerData.retention_type == 1)
-      withholdingValue = employerData.payment_percentage.replace("%", "");
+   
+    if (employerData.retention_type == 1){
+      if (formData.id == 0) {
+        withholdingValue = employerData.payment_percentage.replace("%", "");
+      }else{
+        withholdingValue = String(formData.tax_pr_percent);
+      }
+    }
+      
     else {
      
       amount = regular_pay * count;
@@ -198,6 +208,7 @@ const Cargar = () => {
         exed_amount = amount - 61500;
       }
     }
+    
     let tax_pr = 0;
     if (employerData.retention_type == 1)
       tax_pr = regular_pay * (Number(withholdingValue) / 100);
@@ -235,6 +246,7 @@ const Cargar = () => {
     setFormData({
       ...formData,
       ["id"]: _id,
+      ["tax_pr_percent"] : tax_pr_percent,
       ["payment"]: aux,
       ["salary"]: salary,
       ["accountant_id"]: accountant_id,
@@ -446,6 +458,7 @@ const Cargar = () => {
       getNumber(medicare) -
       getNumber(secure_social) -
       getNumber(tax_pr) -
+      getNumber(formData.medical_insurance) -
       getNumber(social_tips) -
       getNumber(choferil) -
       formData.donation +
@@ -479,7 +492,17 @@ const Cargar = () => {
     if (total > 0) return total;
     else return 0;
   };
+  const getCreatedAt = (date : any) => {
+    if (!date) return ""; // Handle null or undefined
 
+    if (typeof date === 'string') {
+      return date.split('T')[0];
+    } else if (date instanceof Date) {
+      return date.toISOString().split('T')[0];
+    } else {
+      return ""; // Handle other unexpected types
+    }
+  };
   const getPreTotal = () => {
     var total = 0;
     const regular_pay =
@@ -757,6 +780,8 @@ const Cargar = () => {
         showError(error.response.data.detail);
       });
   };
+
+  
   const getData = (id_employer: any) => {
     setLoanding(true);
     getCompanyWithEmployer(Number(params.id_company), id_employer, year)
@@ -780,6 +805,8 @@ const Cargar = () => {
         // If the query fails, an error will be displayed on the terminal.
       });
   };
+
+  
 
   const resetData = (id_employer: any) => {
     setLoanding(true);
@@ -918,9 +945,10 @@ const Cargar = () => {
         </div>
       </div>
       <div className="w-full  mt-4 bg-white rounded-lg shadow p-4 ">
-        <div className="xl:w-full w-full ">
+     
+        <div className="xl:w-full w-full flex items-center justify-center    gap-2 ">
           <CustomInputs
-            class="xl:w-1/3 w-full mx-auto xl:pe-1  inline-block "
+            class="xl:w-1/3 w-full mx-auto   inline-block "
             label=""
             disabled={true}
             value={companyData.name}
@@ -932,7 +960,7 @@ const Cargar = () => {
             name="employers"
             onChange={handleChangeEmployer}
             value={idEmployer}
-            className={`xl:w-1/3 w-full bg-gray-50 pe-1 border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em]`}
+            className={`xl:w-1/3 w-full bg-gray-50 h-[42px]  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em]`}
           >
             <option value={-1}>Seleccione una opción</option>
             {employers.map((item: any) => (
@@ -945,7 +973,7 @@ const Cargar = () => {
             name="accountant_id"
             onChange={handleInputChange}
             value={formData.accountant_id}
-            className={`xl:w-1/3 w-full xl:mt-0 mt-2 bg-gray-50  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em] `}
+            className={`xl:w-1/3 w-full xl:mt-0 mt-2 h-[42px] bg-gray-50  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em] `}
           >
             <option value={-1}>Seleccione una opción</option>
             {accountants
@@ -956,6 +984,52 @@ const Cargar = () => {
                 </option>
               ))}
           </select>
+          
+           
+          
+        </div>
+        <div className="xl:w-full w-full flex items-center justify-center  border rounded-lg border-gray-500 p-2 gap-2 ">
+
+            <div  className={`xl:w-1/3 w-full `}>
+            <label className="block" htmlFor="">
+                Fecha de Pago
+              </label>
+              <input
+            name="pay_date"
+            onChange={handleInputChange}
+            
+            type="date"
+            value={getCreatedAt(formData.pay_date)}
+            className={` w-full xl:mt-0 mt-2 h-[42px] bg-gray-50  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em] `}
+          />
+            </div>
+            <div  className={`xl:w-1/3 w-full `}>
+            <label className="block" htmlFor="">
+                Porcentaje de TAX PR
+              </label>
+          <input
+            name="tax_pr_percent"
+          
+            type="text"
+            value={formData.tax_pr_percent}
+            className={` w-full xl:mt-0 mt-2 h-[42px] bg-gray-50  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em] `}
+          />
+            </div>
+            <div  className={`xl:w-1/3 w-full `}>
+            <label className="block" htmlFor="">
+                Fecha de Creacion
+              </label>
+              <input
+            name="created_at"
+            onChange={handleInputChange}
+            type="date"
+            readOnly
+            value={getCreatedAt(formData.created_at)}
+            className={` w-full xl:mt-0 mt-2 h-[42px] bg-gray-50  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em] `}
+          />
+            </div>
+           
+          
         </div>
         <div className="flex flex-col xl:flex-row gap-4 mt-4">
           <div className="xl:w-1/3 w-full border rounded-lg border-gray-500 p-2 ">
@@ -1451,6 +1525,7 @@ const Cargar = () => {
                   tabIndex={0}
                   type="number"
                   name="tax_pr"
+                  onChange={handleInputChange}
                   value={getNumber(formData.tax_pr)}
                 />
               </label>
@@ -1546,6 +1621,25 @@ const Cargar = () => {
                   onChange={handleInputChange}
                   name="aflac"
                   value={getNumber(formData.aflac)}
+                />
+              </label>
+            </div>
+            <div
+              className={` block mb-2   font-medium text-gray-700 w-1/2 mx-auto pe-1  inline-block `}
+            >
+              <label>
+                <span>
+                  {" "}
+                  Plan Medico
+                  <span>( - )</span>
+                </span>
+
+                <input
+                  className={` bg-gray-50 text-sm text-center invalid:border-red-500 border mt-2 w-full border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-2.5`}
+                  type="number"
+                  onChange={handleInputChange}
+                  name="medical_insurance"
+                  value={getNumber(formData.medical_insurance)}
                 />
               </label>
             </div>

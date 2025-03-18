@@ -51,7 +51,7 @@ export const FILES = [
   },
   {
     id: 14,
-    name: "WAGES",
+    name: "Reporte de Salarios",
   },
   {
     id: 8,
