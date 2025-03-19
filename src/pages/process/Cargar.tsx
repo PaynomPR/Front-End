@@ -76,6 +76,9 @@ const Cargar = () => {
     let salary = 0;
     let accountant_id = 0;
     let tax_pr_percent = 0;
+    const updatedFormData = { ...formData };
+
+  
     let meal_amount = 0;
     if (formData.id == 0) {
       salary = employerData.salary;
@@ -87,7 +90,12 @@ const Cargar = () => {
       meal_amount = employerData.mealtime;
     } else {
       salary = formData.salary;
-      tax_pr_percent = formData.tax_pr_percent;
+      if (formData.tax_pr_percent == null){
+        tax_pr_percent = Number(employerData.payment_percentage.replace("%", ""));
+      }else{
+        tax_pr_percent = formData.tax_pr_percent;
+      }
+      
 
       accountant_id = formData.accountant_id;
       regular_amount = formData.regular_amount;
@@ -453,6 +461,7 @@ const Cargar = () => {
       choferil = formData.choferil;
     }
     total = regular_pay;
+    
     total =
       total -
       getNumber(inability) -
