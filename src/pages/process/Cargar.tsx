@@ -736,11 +736,18 @@ const Cargar = () => {
     } else {
 
       if (formData.medical_insurance == null){
-        formData.medical_insurance = 0;
+        setFormData({
+          ...formData,
+          medical_insurance: 0,
+        });
       }
       if (formData.tax_pr_percent == null){
-        formData.tax_pr_percent = Number(employerData.payment_percentage);
+        setFormData({
+          ...formData,
+          tax_pr_percent: Number(employerData.payment_percentage),
+        });
       }
+     
       if (selectedPeriod == 0)
         return showError("Por favor seleccione el Periodo");
 
