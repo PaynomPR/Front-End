@@ -76,8 +76,7 @@ const Cargar = () => {
     let salary = 0;
     let accountant_id = 0;
     let tax_pr_percent = 0;
-    const updatedFormData = { ...formData };
-
+   
   
     let meal_amount = 0;
     if (formData.id == 0) {
@@ -720,16 +719,7 @@ const Cargar = () => {
     getData(idEmployer);
   }, [year]);
   const handleCreate = () => {
-    // Ensure medical_insurance and tax_pr_percent are not null before proceeding
-    const updatedFormData = { ...formData };
-
-    if (updatedFormData.medical_insurance == null) {
-        updatedFormData.medical_insurance = 0;
-    }
-    if (updatedFormData.tax_pr_percent == null) {
-        updatedFormData.tax_pr_percent = Number(employerData.payment_percentage);
-    }
-    setFormData(updatedFormData)
+    
 
     if (formData.id == 0) {
       
