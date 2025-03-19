@@ -501,17 +501,25 @@ const Cargar = () => {
     if (total > 0) return total;
     else return 0;
   };
-  const getCreatedAt = (date : any) => {
+  const getCreatedAt = (date: any): string => {
     if (!date) return ""; // Handle null or undefined
-
-    if (typeof date === 'string') {
-      return date.split('T')[0];
+  
+    if (typeof date === "string") {
+      // Check if the string is in ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ)
+      if (date.includes("T")) {
+        return date.split("T")[0]; // Extract the date part
+      } else if (date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          return date; // Already in YYYY-MM-DD format
+      } else {
+          return ""; // Invalid date format
+      }
     } else if (date instanceof Date) {
-      return date.toISOString().split('T')[0];
+      return date.toISOString().split("T")[0];
     } else {
       return ""; // Handle other unexpected types
     }
   };
+  
   const getPreTotal = () => {
     var total = 0;
     const regular_pay =
@@ -553,15 +561,24 @@ const Cargar = () => {
   };
 
   const handleInputChange = (e: React.FormEvent<any>) => {
-    if (e.currentTarget.type === "number" && e.currentTarget.value == null)
+    if (e.currentTarget.type === "number" && e.currentTarget.value == null) {
       e.currentTarget.value = "0";
-
+    }
+  
+    let value = e.currentTarget.value;
+  
+    if (e.currentTarget.type === "date") {
+      // Format the date to YYYY-MM-DD (no timestamp)
+      const date = new Date(e.currentTarget.value);
+      value = date.toISOString().split("T")[0];
+    }
+  
     setFormData({
       ...formData,
       [e.currentTarget.name]:
         e.currentTarget.type === "number"
-          ? parseFloat(e.currentTarget.value)
-          : e.currentTarget.value,
+          ? parseFloat(value)
+          : value,
     });
   };
   const handleInputTimeChange = (
