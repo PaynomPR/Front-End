@@ -31,7 +31,6 @@ import { TAXES, TAXES_DATA } from "../../models/taxes";
 import { FIXEDTAXES_DATA } from "../../models/fixedTaxes";
 import { SUM_DATA } from "../../models/sumTaxes";
 import ModalAlert from "../../components/dashboard/ModalAlert";
-import EmployeerForm from "../../components/forms/EmployeerForm";
 
 const Cargar = () => {
   const params = useParams();
