@@ -1036,7 +1036,7 @@ const Cargar = () => {
               </label>
           <input
             name="tax_pr_percent"
-          
+            onChange={handleInputChange}
             type="text"
             value={formData.tax_pr_percent}
             className={` w-full xl:mt-0 mt-2 h-[42px] bg-gray-50  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em] `}
