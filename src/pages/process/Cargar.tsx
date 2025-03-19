@@ -711,19 +711,19 @@ const Cargar = () => {
     getData(idEmployer);
   }, [year]);
   const handleCreate = () => {
+    // Ensure medical_insurance and tax_pr_percent are not null before proceeding
+    const updatedFormData = { ...formData };
+
+    if (updatedFormData.medical_insurance == null) {
+        updatedFormData.medical_insurance = 0;
+    }
+    if (updatedFormData.tax_pr_percent == null) {
+        updatedFormData.tax_pr_percent = Number(employerData.payment_percentage);
+    }
+    setFormData(updatedFormData)
+
     if (formData.id == 0) {
-      if (formData.medical_insurance == null){
-        setFormData({
-          ...formData,
-          medical_insurance: 0,
-        });
-      }
-      if (formData.tax_pr_percent == null){
-        setFormData({
-          ...formData,
-          tax_pr_percent: Number(employerData.payment_percentage),
-        });
-      }
+      
      
       if (selectedPeriod == 0)
         return showError("Por favor seleccione el Periodo");
@@ -747,18 +747,7 @@ const Cargar = () => {
         });
     } else {
 
-      if (formData.medical_insurance == null){
-        setFormData({
-          ...formData,
-          medical_insurance: 0,
-        });
-      }
-      if (formData.tax_pr_percent == null){
-        setFormData({
-          ...formData,
-          tax_pr_percent: Number(employerData.payment_percentage),
-        });
-      }
+      
      
       if (selectedPeriod == 0)
         return showError("Por favor seleccione el Periodo");
@@ -780,6 +769,7 @@ const Cargar = () => {
         });
     }
   };
+
 
   const getAmountTaxe = (taxe: TAXES) => {
     if (taxe.type_amount == 1) return (getPreTotal() * taxe.amount) / 100;
