@@ -90,7 +90,7 @@ const Cargar = () => {
       meal_amount = employerData.mealtime;
     } else {
       salary = formData.salary;
-      if (formData.tax_pr_percent == null){
+      if (formData.tax_pr_percent == null || formData.tax_pr_percent == 0){
         tax_pr_percent = Number(employerData.payment_percentage.replace("%", ""));
       }else{
         tax_pr_percent = formData.tax_pr_percent;
