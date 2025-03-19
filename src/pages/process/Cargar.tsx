@@ -31,6 +31,7 @@ import { TAXES, TAXES_DATA } from "../../models/taxes";
 import { FIXEDTAXES_DATA } from "../../models/fixedTaxes";
 import { SUM_DATA } from "../../models/sumTaxes";
 import ModalAlert from "../../components/dashboard/ModalAlert";
+import EmployeerForm from "../../components/forms/EmployeerForm";
 
 const Cargar = () => {
   const params = useParams();
@@ -434,6 +435,7 @@ const Cargar = () => {
     let social_tips = 0;
     let choferil = 0;
 
+
     if (formData.id == 0) {
       inability = getNumber(formData.inability);
       medicare = getNumber(formData.medicare);
@@ -732,6 +734,13 @@ const Cargar = () => {
           setLoanding(false);
         });
     } else {
+
+      if (formData.medical_insurance == null){
+        formData.medical_insurance = 0;
+      }
+      if (formData.tax_pr_percent == null){
+        formData.tax_pr_percent = Number(employerData.payment_percentage);
+      }
       if (selectedPeriod == 0)
         return showError("Por favor seleccione el Periodo");
 
