@@ -23,7 +23,7 @@ export const TIME_DATA = {
 
   regular_pay: 0,
   created_at: new Date(),
-  pay_date: new Date(),
+  pay_date: "", // Changed to string, will store YYYY-MM-DD
   payment: [PAYMENT_DATA],
   vacation_time: "00:00",
   period_id: 1,
@@ -81,7 +81,7 @@ export interface TIME {
   concessions: number;
   sick_pay: number;
   created_at: Date;
-  pay_date: Date;
+  pay_date: string;
   tax_pr_percent: number;
   payment: [PAYMENT];
   regular_time: string;
