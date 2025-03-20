@@ -76,10 +76,13 @@ const Cargar = () => {
     let salary = 0;
     let accountant_id = 0;
     let tax_pr_percent = 0;
-   
+    let today  = new Date();
+    let pay_date : any;
   
     let meal_amount = 0;
     if (formData.id == 0) {
+      pay_date = today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
+
       salary = employerData.salary;
       accountant_id = companyData.accountant_id;
       tax_pr_percent = Number(employerData.payment_percentage.replace("%", ""));
@@ -88,6 +91,7 @@ const Cargar = () => {
       over_amount = employerData.overtime;
       meal_amount = employerData.mealtime;
     } else {
+      pay_date= formData.pay_date;
       salary = formData.salary;
       if (formData.tax_pr_percent == null || formData.tax_pr_percent == 0){
         tax_pr_percent = Number(employerData.payment_percentage.replace("%", ""));
@@ -258,6 +262,7 @@ const Cargar = () => {
       ["salary"]: salary,
       ["accountant_id"]: accountant_id,
       ["inability"]: getNumber(inability),
+      ["pay_date"] : pay_date,
       ["choferil"]: getNumber(choferil),
       ["medicare"]: getNumber(medicare),
       ["secure_social"]: getNumber(secure_social),
