@@ -20,7 +20,7 @@ export const TIME_DATA = {
   donation: 0,
   vacation_acum_hours: "00:00",
   sicks_acum_hours: "00:00",
-
+  retention_type: 0,
   regular_pay: 0,
   created_at: new Date(),
   pay_date: "", // Changed to string, will store YYYY-MM-DD
@@ -61,6 +61,7 @@ export interface TIME {
   salary: number;
   others: number;
   bonus: number;
+  retention_type: number;
   regular_amount: number;
   over_amount: number;
   meal_amount: number;

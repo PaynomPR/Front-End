@@ -78,11 +78,13 @@ const Cargar = () => {
     let tax_pr_percent = 0;
     let today  = new Date();
     let pay_date : any;
+    let retention_type : any;
+    
   
     let meal_amount = 0;
     if (formData.id == 0) {
       pay_date = today.toISOString().split('T')[0]; // Formato YYYY-MM-DD
-
+      retention_type = employerData.retention_type;
       salary = employerData.salary;
       accountant_id = companyData.accountant_id;
       tax_pr_percent = Number(employerData.payment_percentage.replace("%", ""));
@@ -98,6 +100,7 @@ const Cargar = () => {
       }else{
         tax_pr_percent = formData.tax_pr_percent;
       }
+      retention_type = formData.retention_type;
       
 
       accountant_id = formData.accountant_id;
@@ -181,7 +184,7 @@ const Cargar = () => {
     }
     var exed_sum= 0;
    
-    if (employerData.retention_type == 1){
+    if (retention_type == 1){
       if (formData.id == 0) {
         withholdingValue = employerData.payment_percentage.replace("%", "");
       }else{
@@ -221,7 +224,7 @@ const Cargar = () => {
     }
     
     let tax_pr = 0;
-    if (employerData.retention_type == 1)
+    if (retention_type == 1)
       tax_pr = regular_pay * (Number(withholdingValue) / 100);
     else{
       tax_pr = (exed_amount * (Number(withholdingValue) / 100)) ;
@@ -260,6 +263,8 @@ const Cargar = () => {
       ["tax_pr_percent"] : tax_pr_percent,
       ["payment"]: aux,
       ["salary"]: salary,
+      ["retention_type"]: retention_type,
+
       ["accountant_id"]: accountant_id,
       ["inability"]: getNumber(inability),
       ["pay_date"] : pay_date,
@@ -1042,7 +1047,7 @@ const Cargar = () => {
             className={` w-full xl:mt-0 mt-2 h-[42px] bg-gray-50  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em] `}
           />
             </div>
-            {formData.tax_pr_percent !== 0 && (
+            {formData.retention_type == 1 && (
             <div className={`xl:w-1/3 w-full `}>
               <label className="block" htmlFor="">
                 Porcentaje de TAX PR
@@ -1056,6 +1061,21 @@ const Cargar = () => {
               />
             </div>
           )}
+          {formData.retention_type == 2 && (
+            <div className={`xl:w-1/3 w-full `}>
+              <label className="block" htmlFor="">
+                Tipo de Retencion
+              </label>
+              <input
+                name="retention_type"
+           
+                type="text"
+                value="Tabla"
+                className={` w-full xl:mt-0 mt-2 h-[42px] bg-gray-50  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em] `}
+              />
+            </div>
+          )}
+          
             <div  className={`xl:w-1/3 w-full `}>
             <label className="block" htmlFor="">
                 Fecha de Creacion
