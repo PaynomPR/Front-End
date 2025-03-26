@@ -50,6 +50,10 @@ export const FILES = [
     name: "BONUS",
   },
   {
+    id: 15,
+    name: "Vacaciones",
+  },
+  {
     id: 14,
     name: "Reporte de Salarios",
   },

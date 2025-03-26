@@ -100,8 +100,12 @@ const Cargar = () => {
       }else{
         tax_pr_percent = formData.tax_pr_percent;
       }
-      retention_type = formData.retention_type;
+      console.log(formData.retention_type);
       
+      if (formData.retention_type)
+      retention_type = formData.retention_type;
+      else
+      retention_type = employerData.retention_type;
 
       accountant_id = formData.accountant_id;
       regular_amount = formData.regular_amount;
