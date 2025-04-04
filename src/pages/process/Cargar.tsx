@@ -154,7 +154,7 @@ const Cargar = () => {
     if (taxeMedicare) {
       medicareAmount = taxeMedicare.amount;
       medicare = regular_pay * (medicareAmount / 100);
-      if (sumTaxes.total_medicare >= taxeMedicare.limit) medicare = 0;
+      if (sumTaxes.total_medicare >= taxeMedicare.limit && formData.id == 0) medicare = 0;
       else if (sumTaxes.total_medicare + medicare > taxeMedicare.limit)
         medicare = taxeMedicare.limit - sumTaxes.total_medicare;
     }
