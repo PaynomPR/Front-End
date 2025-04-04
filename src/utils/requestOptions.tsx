@@ -109,10 +109,11 @@ export function getCompanyWithOutEmployer(
 }
 export function getCompanyWithOutEmployerTime(
   id_company: number,
-  id_employer: number
+  id_employer: number,
+  year: number
 ) {
   return Axios.request(
-    setOptions("outemployers/time/" + id_company + "/" + id_employer, "GET")
+    setOptions("outemployers/time/" + id_company + "/" + id_employer+"/" + year, "GET")
   ); // Using a post request, specifying the user
 }
 export function getCompanyWithEmployer(
@@ -323,6 +324,39 @@ export function getCounterFoilPeriod(
   });
 }
 
+export function getOutCounterFoilPeriod(
+  id_company: number,
+  employer_id: number,
+  id_time: number,
+  year: any,
+  employer: any
+) {
+  return Axios({
+    url:
+      BASE_URL +
+      `/reports/Outcounterfoil/${id_company}/${employer_id}/${id_time}/${year}`,
+    method: "GET",
+    responseType: "blob", // importante
+  }).then((response) => {
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    link.setAttribute(
+      "download",
+      "Empleado-" +
+        employer.first_name +
+        "-" +
+        employer.last_name +
+        "-Periodo-" +
+      
+        ".pdf"
+    );
+    document.body.appendChild(link);
+    link.click();
+  });
+}
+
+
 export function getCounterFoil(
   id_company: number,
   id_time: number,
@@ -404,7 +438,34 @@ export function getCounterFoilbyDateRange(
     link.click();
   });
 }
-
+export function getOutCounterFoilbyDateRange(
+  company_id: number,
+ 
+  start: any,
+  end: any,
+  
+) {
+  return Axios({
+    url: BASE_URL + `/reports/wages/outemployer/range`,
+    method: "POST",
+    data: {
+      company_id: company_id,
+      
+      start: start,
+      end: end,
+     
+    },
+    responseType: "blob", // importante
+  }).then((response) => {
+    console.log(response);
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;    
+    link.setAttribute("download", "WAGES-ALL.pdf");
+    document.body.appendChild(link);
+    link.click();
+  });
+}
 export function getW2PFoil(
   employer_id: number,
   employer: any,

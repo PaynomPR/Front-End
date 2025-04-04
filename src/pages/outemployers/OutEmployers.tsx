@@ -11,27 +11,55 @@ import CustomInputs from "../../components/forms/CustomInputs";
 import {
   changeStatusOutEmployer,
   deleteOutEmployer,
+  getOutCounterFoilbyDateRange,
   getOutEmployers,
 } from "../../utils/requestOptions";
-
+import {
+  faCalendarCheck,
+  
+} from "@fortawesome/free-solid-svg-icons";
 import { Link, useParams } from "react-router-dom";
 import { showError, showSuccess } from "../../utils/functions";
+import { DateRangePicker } from "react-date-range";
 
 const OutEmployers = () => {
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const [loanding, setLoanding] = useState(false);
-
+  const [selectionRange, setSelectionRange] = useState({
+    startDate: new Date(),
+    endDate: new Date(),
+    key: "selection",
+  });
   const [search, setSearch] = useState("");
   const [row, setRow] = useState({ first_name: "", id: 0, is_deleted: false });
 
   const [data, setData] = useState([]);
   const params = useParams();
-
+  const handleSelect = (ranges: any) => {
+    setSelectionRange(ranges.selection);
+  };
   // Componente Switch personalizado en TypeScript
   interface SwitchProps {
     isOn: boolean;
     handleToggle: () => void;
+  }
+
+  const downloadFile = () => {
+    const { startDate, endDate } = selectionRange;
+    getOutCounterFoilbyDateRange(Number(params.id),startDate, endDate)
+            .then(() => {
+              // Data retrieval and processing
+              setLoanding(false);
+    
+              showSuccess("Creado exitosamente.");
+            })
+            .catch((error) => {
+              setLoanding(false);
+    
+              // If the query fails, an error will be displayed on the terminal.
+              showError(error.response.data.detail);
+            });
   }
   interface RowData {
     first_name: string;
@@ -206,7 +234,32 @@ const OutEmployers = () => {
 
   return (
     <>
-      <div className="text-[#EED102] bg-[#333160] p-6 rounded-lg text-center flex">
+    <div className="text-[#EED102] bg-[#333160] p-6 rounded-lg text-center flex">
+        <button className="flex-1">
+          <h3 className="text-2xl">Reporte de Salarios</h3>
+        </button>
+      </div>
+      <div className="w-full bg-white rounded-lg shadow p-4 mt-4	flex align-middle justify-center	  ">
+       <div className="mt-4 text-center">
+                      <DateRangePicker
+                        ranges={[selectionRange]}
+                        onChange={handleSelect}
+                      />
+                    </div>
+                    <button
+                              onClick={downloadFile}
+                              className={`xl:w-1/3 w-full shadow-xl  mx-auto bg-white rounded-lg shadow p-4 py-6	text-center}`}
+                            >
+                              <FontAwesomeIcon
+                                icon={faCalendarCheck}
+                                className="text-6xl text-[#333160]"
+                              />
+                              <h3 className="text-[#333160] text-xl font-bold mt-4">
+                                Descargar Archivo
+                              </h3>
+                            </button>
+                    </div>
+      <div className="text-[#EED102] bg-[#333160] p-6 mt-4 rounded-lg text-center flex">
         <button className="flex-1">
           <h3 className="text-2xl">Servicio Profesionales</h3>
         </button>

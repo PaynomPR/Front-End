@@ -5,6 +5,7 @@ import {
   deleteTime,
   editOutTime,
   getCompanyWithOutEmployerTime,
+  getOutCounterFoilPeriod,
   setOutTime,
 } from "../../utils/requestOptions";
 import { useParams } from "react-router-dom";
@@ -29,7 +30,11 @@ const OutEmployeHours = () => {
   const [formData, setFormData] = useState(FOREIGN_DATA);
   const [employers, setEmployers] = useState([]);
   const [idEmployer, setIdEmployer] = useState(0);
-
+  /* const [loanding, setLoanding] = useState(false); */
+  const [year, setYear] = useState(() => {
+    const currentYear = new Date().getFullYear().toString(); // Convertimos el año a string
+    return currentYear;
+  });
   const [isOpen, setIsOpen] = useState(false);
   const [isOpen2, setIsOpen2] = useState(false);
   const handleModal = () => {
@@ -85,14 +90,31 @@ const OutEmployeHours = () => {
       [e.currentTarget.name]: value + "",
     });
   };
-
+  const getCreatedAt = (date: any): string => {
+    if (!date) return ""; // Handle null or undefined
+  
+    if (typeof date === "string") {
+      // Check if the string is in ISO 8601 format (YYYY-MM-DDTHH:mm:ss.sssZ)
+      if (date.includes("T")) {
+        return date.split("T")[0]; // Extract the date part
+      } else if (date.match(/^\d{4}-\d{2}-\d{2}$/)) {
+          return date; // Already in YYYY-MM-DD format
+      } else {
+          return ""; // Invalid date format
+      }
+    } else if (date instanceof Date) {
+      return date.toISOString().split("T")[0];
+    } else {
+      return ""; // Handle other unexpected types
+    }
+  };
   const handleCreate = () => {
     if (formData.id == 0) {
       setOutTime(formData, Number(params.id_employer))
         .then(() => {
           // Data retrieval and processing
           setFormData(FOREIGN_DATA);
-          getData(idEmployer);
+          getData(idEmployer,Number(year));
           handleModal();
           showSuccess("Creado exitosamente.");
         })
@@ -105,7 +127,7 @@ const OutEmployeHours = () => {
         .then(() => {
           // Data retrieval and processing
           setFormData(FOREIGN_DATA);
-          getData(idEmployer);
+          getData(idEmployer,Number(year));
           handleModal();
           showSuccess("Editado exitosamente.");
         })
@@ -115,17 +137,17 @@ const OutEmployeHours = () => {
         });
     }
   };
-  const handleChangeEmployer = (e: React.FormEvent<any>) => {
+ /*  const handleChangeEmployer = (e: React.FormEvent<any>) => {
     const value = e.currentTarget.value;
     setIdEmployer(Number(value));
-    getData(Number(value));
-  };
+    getData(Number(value),Number(year));
+  }; */
   const handleDelete = () => {
     deleteTime(formData.id)
       .then(() => {
         // Data retrieval and processing
         setFormData(FOREIGN_DATA);
-        getData(idEmployer);
+        getData(idEmployer,Number(year));
         handleModal();
         showSuccess("Creado exitosamente.");
       })
@@ -134,14 +156,20 @@ const OutEmployeHours = () => {
         showError(error.response.data.detail);
       });
   };
-  const getData = (id: number) => {
-    getCompanyWithOutEmployerTime(Number(params.id), id)
+  const getData = (id: number, year: number) => {
+    getCompanyWithOutEmployerTime(Number(params.id), id,year)
       .then((response) => {
         // Data retrieval and processing
         setEmployerData(response.data.result.employer);
         setCompanyData(response.data.result.company);
         setEmployers(response.data.result.employers);
         setTimesData([]);
+        setFormData({
+          ...formData,
+    
+          year: year,
+         
+        });
 
         if (response.data.result.time.length == 0) setTimesData([FOREIGN_DATA]);
         else {
@@ -152,6 +180,28 @@ const OutEmployeHours = () => {
         // If the query fails, an error will be displayed on the terminal.
       });
   };
+  const generateFile = () => {
+     /*  setLoanding(true); */
+  
+      getOutCounterFoilPeriod(
+        Number(params.id),
+        idEmployer,
+        formData.id,
+        2025,
+        employerData
+      )
+        .then(() => {
+          // Data retrieval and processing
+         /*  setLoanding(false); */
+  
+          showSuccess("Creado exitosamente.");
+        })
+        .catch((error) => {
+         /*  setLoanding(false); */
+          // If the query fails, an error will be displayed on the terminal.
+          showError(error.response.data.detail);
+        });
+    };
 
   const handlePeriodChange = (e: React.FormEvent<any>) => {
     const value = e.currentTarget.value;
@@ -161,9 +211,27 @@ const OutEmployeHours = () => {
       console.log(formData);
     }
   };
+  const handleYearChange = (e: React.FormEvent<any>) => {
+    const value = e.currentTarget.value;
+    setYear(value);
+   
+   
+    getData(idEmployer,value);
+    setFormData({
+      ...formData,
+      detained: 0,
+      regular_pay: 0,
+      regular_hours: "00",
+      regular_min: "00",
+      id: 0,
+      pay_date: "",
+      year: value,
+     
+    });
+  };
 
   useEffect(() => {
-    getData(Number(params.id_employer));
+    getData(Number(params.id_employer),Number(year));
     setIdEmployer(Number(params.id_employer));
   }, []);
 
@@ -192,21 +260,29 @@ const OutEmployeHours = () => {
         </label>
       </div>
       <div className="w-full  mt-4 bg-white rounded-lg shadow p-4 ">
-        <div className="xl:w-full w-full ">
+        <div className="xl:w-full w-full flex gap-4 flex-row ">
+        <div  className={`xl:w-1/3 w-full inline-block `}>
+<label className="block" htmlFor="">
+                Empresa
+              </label>
           <CustomInputs
-            class="w-1/2 mx-auto pe-1  inline-block "
+            class="w-full mx-auto pe-1  inline-block "
             label=""
             disabled={true}
             value={companyData.name}
             placeholder=""
             type="text"
           />
-
+          </div>
+            <div  className={`xl:w-1/3 w-full inline-block `}>
+<label className="block" htmlFor="">
+                Empleado
+              </label>
           <select
             name="employers"
-            onChange={handleChangeEmployer}
+            onChange={handlePeriodChange}
             value={idEmployer}
-            className={`w-1/2 bg-gray-50 border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em]`}
+            className={` w-full h-[42px] mx-auto mt-2 bg-gray-50 border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em]`}
           >
             <option value={-1}>Seleccione una opción</option>
             {employers.map((item: any) => (
@@ -215,6 +291,39 @@ const OutEmployeHours = () => {
               </option>
             ))}
           </select>
+          </div>
+          <div  className={`xl:w-1/3 w-full inline-block `}>
+<label className="block" htmlFor="">
+                Año de pago
+              </label>
+              <select
+          name="year"
+          onChange={handleYearChange}
+          value={year}
+          className={` bg-gray-50 w-full border h-[42px]  mt-2   pe-1 border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 inline-block  p-3`}
+        >
+          <option value="2024">2024</option>
+          <option value="2025">2025</option>
+          <option value="2026">2026</option>
+          <option value="2027">2027</option>
+          <option value="2028">2028</option>
+          <option value="2029">2029</option>
+          <option value="2030">2030</option>
+        </select>
+          </div>
+          <div  className={`xl:w-1/3 w-full inline-block `}>
+            <label className="block " htmlFor="">
+                Fecha de Pago
+              </label>
+              <input
+            name="pay_date"
+            onChange={handleInputChange}
+            
+            type="date"
+            value={getCreatedAt(formData.pay_date)}
+            className={` w-full  mt-2 h-[42px] mx-auto bg-gray-50  border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em] `}
+          />
+            </div>
         </div>
         <div className="flex flex-row xl:flex-col gap-4">
           <div className="xl:w-full w-full ">
@@ -419,6 +528,15 @@ const OutEmployeHours = () => {
           </div>
         </div>
       </div>
+      <div className="flex flex-row">
+      <div className="w-full  mt-4 text-center  p-4 ">
+        <button
+          onClick={generateFile}
+          className="w-auto   mx-auto bg-[#333160] py-4 text-[#EED102] bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-8 text-center "
+        >
+          Descargar Talonario
+        </button>
+      </div>
       <div className="w-full  mt-4 text-center  p-4 ">
         <button
           onClick={handleModal}
@@ -427,7 +545,9 @@ const OutEmployeHours = () => {
           Cargar tiempo de empleado
         </button>
       </div>
-
+      </div>
+      
+      
       <ModalAlert
         isOpen={isOpen2}
         action={handleDelete}

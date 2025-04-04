@@ -46,6 +46,8 @@ const Cargar = () => {
   const [formData, setFormData] = useState(TIME_DATA);
   const [accountants, setAccountants] = useState([]);
   const [times, setTimes] = useState([TIME_DATA]);
+  const [total, setTotal] = useState(0);
+
 
   const [taxesData, setTaxesData] = useState([TAXES_DATA]);
   const [fixedTaxesData, setFixedTaxesData] = useState([FIXEDTAXES_DATA]);
@@ -140,7 +142,7 @@ const Cargar = () => {
       if (employerData.choferil != "SI") {
         inability = regular_pay * (inabilityAmount / 100);
 
-        if (sumTaxes.total_inability >= taxeInability.limit) inability = 0;
+        if (total >= 9000) inability = 0;
         else if (sumTaxes.total_inability + inability > taxeInability.limit)
           inability = taxeInability.limit - sumTaxes.total_inability;
       }
@@ -747,7 +749,8 @@ const Cargar = () => {
     setYear(value);
   };
   useEffect(() => {
-    getData(idEmployer);
+    if (Number(year) != 0)
+      getData(idEmployer);
   }, [year]);
   const handleCreate = () => {
     
@@ -844,7 +847,7 @@ const Cargar = () => {
         } else {
           setFlag(flag + 1);
         }
-
+        setTotal(response.data.result.total)
         setTimesData([]);
 
         setTimesData([...response.data.result.periods]);
