@@ -135,18 +135,25 @@ const Cargar = () => {
 
     let inabilityAmount = 0;
     let inability = 0;
-    const taxeInability = fixedTaxesData.find((tax) => tax.id === 1);
-    if (taxeInability) {
-      inabilityAmount = taxeInability.amount;
-
-      if (employerData.choferil != "SI") {
-        inability = regular_pay * (inabilityAmount / 100);
-
-        if (total >= 9000 && formData.id == 0) inability = 0;
-        else if (sumTaxes.total_inability + inability > taxeInability.limit)
-          inability = taxeInability.limit - sumTaxes.total_inability;
+    if (formData.id == 0){
+      const taxeInability = fixedTaxesData.find((tax) => tax.id === 1);
+      if (taxeInability) {
+        inabilityAmount = taxeInability.amount;
+  
+        if (employerData.choferil != "SI") {
+          inability = regular_pay * (inabilityAmount / 100);
+  
+          if (total >= 9000 && ) inability = 0;
+          else if (sumTaxes.total_inability + inability > taxeInability.limit)
+            inability = taxeInability.limit - sumTaxes.total_inability;
+        }
       }
+    }else{
+      inability = formData.inability;
+      
+
     }
+    
 
     let medicareAmount = 0;
     let medicare = 0;
