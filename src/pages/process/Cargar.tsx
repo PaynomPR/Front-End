@@ -874,7 +874,7 @@ const Cargar = () => {
         setLoanding(false);
         setEmployerData(response.data.result.employer);
         setTimesData([]);
-
+        setTotal(response.data.result.total)
         setTimesData([...response.data.result.periods]);
 
         setFlag(flag + 1);
