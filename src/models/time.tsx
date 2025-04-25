@@ -5,7 +5,7 @@ export const TIME_DATA = {
   regular_time: "00:00",
 
   over_time: "00:00",
-
+  employer_retained: "0",
   meal_time: "00:00",
   memo: "",
   tips: 0,
@@ -52,6 +52,7 @@ export const TIME_DATA = {
 export interface TIME {
   id: number;
   period: number;
+  employer_retained: number;
   tips: number;
   accountant_id: number;
   period_id: number;
