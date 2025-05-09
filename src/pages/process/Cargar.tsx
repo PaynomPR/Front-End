@@ -242,12 +242,16 @@ const Cargar = () => {
     }
     
     let tax_pr = 0;
+    if (formData.id == 0) {
     if (retention_type == 1)
       tax_pr = regular_pay * (Number(withholdingValue) / 100);
     else{
       tax_pr = (exed_amount * (Number(withholdingValue) / 100)) ;
       tax_pr = (tax_pr + exed_sum) / count;
     } 
+   }else {
+    tax_pr = formData.tax_pr
+   }
     let socialTipsAmount = 0;
     let social_tips = 0;
     sumTaxes.total_social_tips;
