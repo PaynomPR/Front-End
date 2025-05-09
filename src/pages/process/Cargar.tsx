@@ -143,9 +143,14 @@ const Cargar = () => {
         if (employerData.choferil != "SI") {
           inability = regular_pay * (inabilityAmount / 100);
   
-          if (total >= 9000  ) inability = 0;
-          else if (sumTaxes.total_inability + inability > taxeInability.limit)
-            inability = taxeInability.limit - sumTaxes.total_inability;
+          if (total >= 27  ) inability = 0;
+          else{
+            if (total + inability >  27)
+              inability = inability- (total + inability - 27);
+            
+          } 
+
+          
         }
       }
     }else{
