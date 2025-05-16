@@ -373,6 +373,12 @@ export function getCounterFoil(
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
+    var number = 0;
+    if (period.period_number >= 53){
+      number = period.period_number - (52 );
+    }else{
+      number = period.period_number;
+    }
     link.setAttribute(
       "download",
       "Empleado-" +
@@ -380,7 +386,7 @@ export function getCounterFoil(
         "-" +
         employer.last_name +
         "-Periodo-" +
-        period.period_number +
+        number +
         ".pdf"
     );
     document.body.appendChild(link);
