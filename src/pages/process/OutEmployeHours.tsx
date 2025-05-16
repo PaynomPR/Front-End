@@ -55,7 +55,10 @@ const OutEmployeHours = () => {
     let detained = 0;
     if (total != 0) {
       const withholdingValue = employerData.withholding.replace("%", "");
-      detained = total * (Number(withholdingValue) / 100);
+      if (formData.id == 0)
+        detained = total * (Number(withholdingValue) / 100);
+      else
+        detained = formData.detained
     }
     console.log(employerData.withholding);
     setFormData({
@@ -457,7 +460,7 @@ Independientes
                   label=""
                   inputCss="text-center"
                   name="detained"
-                  disabled={true}
+               
                   value={
                     employerData.type_entity == 1 &&
                     Number(employerData.withholding.replace("%", "")) != 0
@@ -505,7 +508,7 @@ Independientes
                   label=""
                   inputCss="text-center"
                   name="detained"
-                  disabled={true}
+                 
                   value={
                     employerData.type_entity != 1 &&
                     Number(employerData.withholding.replace("%", "")) != 0
