@@ -143,7 +143,7 @@ const Process = () => {
       var employer = null;
       if (employerId != 0) employer = filterById(employers, employerId);
       if (employer)
-        getPeriodByType(value, employer.period_norma)
+        getPeriodByType(year, employer.period_norma)
           .then((data: any) => {
             console.log(data.data);
             setPeriods(data.data);

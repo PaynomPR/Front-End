@@ -742,7 +742,10 @@ const Cargar = () => {
 
     setPeriod(value);
     let times = [];
-    if (timesData) times = filterById(timesData, value).times;
+    if (timesData){
+      if (filterById(timesData, value)) times = filterById(timesData, value).times;
+      else times = [TIME_DATA];
+    } 
 
     setSelectedPeriod(filterById(timesData, value).id);
     if (times.length > 0 && value > 0) {

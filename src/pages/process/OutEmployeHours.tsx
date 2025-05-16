@@ -230,6 +230,14 @@ const OutEmployeHours = () => {
     });
   };
 
+  const handleChangeEmployer = (e: React.FormEvent<any>) => {
+    const value = e.currentTarget.value;
+    setIdEmployer(Number(value));
+    getData(Number(value),year);
+  };
+
+  
+
   useEffect(() => {
     getData(Number(params.id_employer),Number(year));
     setIdEmployer(Number(params.id_employer));
@@ -276,11 +284,12 @@ const OutEmployeHours = () => {
           </div>
             <div  className={`xl:w-1/3 w-full inline-block `}>
 <label className="block" htmlFor="">
-                Empleado
+                Contratistas
+Independientes
               </label>
           <select
             name="employers"
-            onChange={handlePeriodChange}
+            onChange={handleChangeEmployer}
             value={idEmployer}
             className={` w-full h-[42px] mx-auto mt-2 bg-gray-50 border inline-block  border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-[0.7em]`}
           >
