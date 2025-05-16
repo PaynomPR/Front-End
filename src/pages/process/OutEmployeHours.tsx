@@ -113,13 +113,14 @@ const OutEmployeHours = () => {
   };
   const handleCreate = () => {
     if (formData.id == 0) {
-      setOutTime(formData, Number(params.id_employer))
+      setOutTime(formData, idEmployer)
         .then(() => {
           // Data retrieval and processing
-          setFormData(FOREIGN_DATA);
+          
           getData(idEmployer,Number(year));
           handleModal();
           showSuccess("Creado exitosamente.");
+          setFormData(FOREIGN_DATA);
         })
         .catch((error) => {
           // If the query fails, an error will be displayed on the terminal.
