@@ -403,15 +403,15 @@ export function getCounterFoilAll(id_company: number, period: any) {
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
-    var number = 0;
+    var n = 0;
     if (period.period_number >= 53){
-      number = period.period_number - 52 ;
+      n = period.period_number - 52 ;
     }else{
-      number = period.period_number;
+      n = period.period_number;
     }
     link.setAttribute(
       "download",
-      "All" + "-Periodo-" + number + ".pdf"
+      "All" + "-Periodo-" + n + ".pdf"
     );
     document.body.appendChild(link);
     link.click();
