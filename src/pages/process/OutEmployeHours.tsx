@@ -233,7 +233,7 @@ const OutEmployeHours = () => {
   const handleChangeEmployer = (e: React.FormEvent<any>) => {
     const value = e.currentTarget.value;
     setIdEmployer(Number(value));
-    getData(Number(value),year);
+    getData(Number(value),Number(year));
   };
 
   
