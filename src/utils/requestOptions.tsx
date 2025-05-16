@@ -399,7 +399,9 @@ export function getCounterFoilAll(id_company: number, period: any) {
     link.href = url;
     var number = 0;
     if (period.period_number >= 53){
-      number = period.period_number - (period.period_number );
+      number = period.period_number - (52 );
+    }else{
+      number = period.period_number;
     }
     link.setAttribute(
       "download",
