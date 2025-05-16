@@ -583,7 +583,7 @@ const Process = () => {
                   <option value={0}>Seleccione un Periodo</option>
                   {periods.map((item: any, i: number) => (
                     <option key={i} value={item.id}>
-                      Periodo Numero {item.period_number} Fecha{" "}
+                      Periodo Numero {i} Fecha{" "}
                       {item.period_start} {item.period_end}
                     </option>
                   ))}

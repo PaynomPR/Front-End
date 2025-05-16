@@ -397,9 +397,13 @@ export function getCounterFoilAll(id_company: number, period: any) {
     const url = window.URL.createObjectURL(new Blob([response.data]));
     const link = document.createElement("a");
     link.href = url;
+    var number = 0;
+    if (period.period_number >= 53){
+      number = period.period_number - (period.period_number -1);
+    }
     link.setAttribute(
       "download",
-      "All" + "-Periodo-" + period.period_number + ".pdf"
+      "All" + "-Periodo-" + number + ".pdf"
     );
     document.body.appendChild(link);
     link.click();
