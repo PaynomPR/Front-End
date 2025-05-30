@@ -278,7 +278,7 @@ const Cargar = () => {
         aux.push(item);
       });
     else aux = formData.payment;
-
+      var  coda_plans= formData.coda_plans;
     setFormData({
       ...formData,
       ["id"]: _id,
@@ -286,6 +286,7 @@ const Cargar = () => {
       ["payment"]: aux,
       ["salary"]: salary,
       ["retention_type"]: retention_type,
+      ["coda_plans"]: coda_plans,
 
       ["accountant_id"]: accountant_id,
       ["inability"]: getNumber(inability),
@@ -497,6 +498,7 @@ const Cargar = () => {
       total -
       getNumber(inability) -
       getNumber(medicare) -
+      getNumber(formData.coda_plans) -
       getNumber(secure_social) -
       getNumber(tax_pr) -
       getNumber(formData.medical_insurance) -
@@ -1727,6 +1729,25 @@ const Cargar = () => {
                   onChange={handleInputChange}
                   name="medical_insurance"
                   value={getNumber(formData.medical_insurance)}
+                />
+              </label>
+            </div>
+            <div
+              className={` block mb-2   font-medium text-gray-700 w-1/2 mx-auto pe-1  inline-block `}
+            >
+              <label>
+                <span>
+                  {" "}
+                  Coda Plans
+                  <span>( - )</span>
+                </span>
+
+                <input
+                  className={` bg-gray-50 text-sm text-center invalid:border-red-500 border mt-2 w-full border-gray-300 text-gray-900  rounded-lg focus:ring-primary-600 focus:border-primary-600 block  p-2.5`}
+                  type="number"
+                  onChange={handleInputChange}
+                  name="coda_plans"
+                  value={getNumber(formData.coda_plans)}
                 />
               </label>
             </div>

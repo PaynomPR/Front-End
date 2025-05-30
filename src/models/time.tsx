@@ -28,7 +28,7 @@ export const TIME_DATA = {
   vacation_time: "00:00",
   period_id: 1,
   holiday_time: "00:00",
-
+  coda_plans: 0,
   inability: 0,
   medicare: 0,
   choferil: 0,
@@ -56,6 +56,8 @@ export interface TIME {
   tips: number;
   accountant_id: number;
   period_id: number;
+  coda_plans: number;
+
   inability: number;
   choferil: number;
   medical_insurance : number;
