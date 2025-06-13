@@ -459,6 +459,7 @@ Independientes
                 <CustomInputs
                   class="w-full mx-auto   inline-block  "
                   label=""
+                   onChange={handleInputChange}
                   inputCss="text-center"
                   name="detained"
                
@@ -507,6 +508,7 @@ Independientes
                 <CustomInputs
                   class="w-full mx-auto   inline-block  "
                   label=""
+                   onChange={handleInputChange}
                   inputCss="text-center"
                   name="detained"
                  
