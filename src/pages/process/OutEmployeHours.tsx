@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import CustomInputs from "../../components/forms/CustomInputs";
 
 import {
+  deleteForeignTime,
   deleteTime,
   editOutTime,
   getCompanyWithOutEmployerTime,
@@ -147,7 +148,7 @@ const OutEmployeHours = () => {
     getData(Number(value),Number(year));
   }; */
   const handleDelete = () => {
-    deleteTime(formData.id)
+    deleteForeignTime(formData.id)
       .then(() => {
         // Data retrieval and processing
         setFormData(FOREIGN_DATA);
@@ -552,6 +553,16 @@ Independientes
           Descargar Talonario
         </button>
       </div>
+       {formData.id != 0 && (
+      <div className="w-full  mt-4 text-center  p-4 ">
+        <button
+          onClick={handleModal2}
+          className="w-auto   mx-auto bg-[#333160] py-4 text-[#EED102] bg-primary-600 hover:bg-primary-700 focus:ring-4 focus:outline-none focus:ring-primary-300 font-medium rounded-lg text-sm px-8 text-center "
+        >
+          Eliminar tiempo de empleado
+        </button>
+      </div>
+)}
       <div className="w-full  mt-4 text-center  p-4 ">
         <button
           onClick={handleModal}

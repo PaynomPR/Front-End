@@ -273,8 +273,8 @@ export function getTime(id_employer: number) {
   return Axios.request(setOptions("time/" + id_employer, "GET")); // Using a post request, specifying the user
 }
 
-export function deleteTime(id_time: number) {
-  return Axios.request(setOptions("time/" + id_time, "DELETE")); // Using a post request, specifying the user
+export function deleteForeignTime(id_time: number) {
+  return Axios.request(setOptions("outtime/" + id_time, "DELETE")); // Using a post request, specifying the user
 }
 
 export function setTime(data: object, id_employer: number) {
