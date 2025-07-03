@@ -13,6 +13,7 @@ import {
   getHaciendaFoil,
   getPeriodByType,
   getUnemploymentFoil,
+  getVacationbyDateRange,
   getW2PFoil,
   getW2PTxt,
   getW2SSEPTxt,
@@ -351,6 +352,26 @@ const Process = () => {
           showError(error.response.data.detail);
         });
     }
+
+    if (selectedFile == 15) {
+      var employer = null;
+      const { startDate, endDate } = selectionRange;
+
+        if (employerId != 0) employer = filterById(employers, employerId);
+      getVacationbyDateRange(companyId,startDate, endDate)
+        .then(() => {
+          // Data retrieval and processing
+          setLoanding(false);
+
+          showSuccess("Creado exitosamente.");
+        })
+        .catch((error) => {
+          setLoanding(false);
+
+          // If the query fails, an error will be displayed on the terminal.
+          showError(error.response.data.detail);
+        });
+    }
     
     if (selectedFile == 5) {
       var companies = filterById(data, companyId);
@@ -528,7 +549,7 @@ const Process = () => {
               placeholder="Seleccione un archivo"
               type="text"
             />
-            {selectedFile != 0 && selectedFile != 7 && selectedFile != 14 && (
+            {selectedFile != 0 && selectedFile != 7 && selectedFile != 14 && selectedFile != 15 && (
               <CustomSelect
                 class="w-full mx-auto  inline-block mt-2 "
                 label="Seleccione el año"
@@ -714,7 +735,7 @@ const Process = () => {
                 </div>
               </>
             )}
-            {selectedFile == 14 && (
+            {selectedFile == 14 || selectedFile == 15 && (
               <div className="mt-4 text-center">
                 <DateRangePicker
                   ranges={[selectionRange]}

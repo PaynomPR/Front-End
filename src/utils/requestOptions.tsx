@@ -179,6 +179,11 @@ export function changeStatusOutEmployer(id: number) {
 export function deleteOutEmployer(id: number) {
   return Axios.request(setOptions("outemployers/delete/" + id, "DELETE"));
 }
+
+export function deleteTime(id: number) {
+  return Axios.request(setOptions("time/" + id, "DELETE"));
+}
+
 export function deleteTaxe(id: number) {
   return Axios.request(setOptions("taxes/delete/" + id, "DELETE"));
 }
@@ -450,6 +455,37 @@ export function getCounterFoilbyDateRange(
     link.click();
   });
 }
+
+export function getVacationbyDateRange(
+  id_company: number,
+  
+  start: any,
+  end: any
+ 
+) {
+  return Axios({
+    url: BASE_URL + `/reports/vacation`,
+    method: "POST",
+    data: {
+      company_id: id_company,
+      start: start,
+      end: end,
+    },
+    responseType: "blob", // importante
+  }).then((response) => {
+    console.log(response);
+    const url = window.URL.createObjectURL(new Blob([response.data]));
+    const link = document.createElement("a");
+    link.href = url;
+    
+    link.setAttribute("download", "VacationHours-ALL.pdf");
+    document.body.appendChild(link);
+    link.click();
+  });
+}
+
+
+
 export function getOutCounterFoilbyDateRange(
   company_id: number,
  
