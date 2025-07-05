@@ -735,14 +735,14 @@ const Process = () => {
                 </div>
               </>
             )}
-            {selectedFile == 14 || selectedFile == 15 && (
+            {selectedFile == 14 || selectedFile == 15 ? (
               <div className="mt-4 text-center">
                 <DateRangePicker
                   ranges={[selectionRange]}
                   onChange={handleSelect}
                 />
               </div>
-            )}
+            ): null}
             {selectedFile == 3 ||
             selectedFile == 4 ||
             selectedFile == 5 ||
