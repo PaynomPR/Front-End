@@ -236,7 +236,7 @@ const OutEmployers = () => {
     <>
     <div className="text-[#EED102] bg-[#333160] p-6 rounded-lg text-center flex">
         <button className="flex-1">
-          <h3 className="text-2xl">Reporte de Salarios</h3>
+          <h3 className="text-2xl">Reporte de Servicios Profesionales</h3>
         </button>
       </div>
       <div className="w-full bg-white rounded-lg shadow p-4 mt-4	flex align-middle justify-center	  ">
